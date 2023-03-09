@@ -1,10 +1,12 @@
 import React from "react";
+import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 
 const HomePage = () => {
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <NavBar />
+      <Footer />
     </div>
   );
 };

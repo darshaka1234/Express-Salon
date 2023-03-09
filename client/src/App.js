@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Drawer from "./components/navbar/Drawer";
+import BookingForm from "./components/form/BookingForm";
 import HomePage from "./screens/HomePage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/test" element={<Drawer />} />
+      <Route path="/test" element={<BookingForm />} />
     </Routes>
   );
 }

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toggle } from "../../features/mobileSlice";
 import CustomeButton from "../CustomButton";
+import { BrandTitle } from "./BrandDeatils";
 
 export const navItems = [
   { name: "Home", to: "/" },
@@ -55,6 +56,9 @@ const MyDrawer = ({ container }) => {
       }}
     >
       <Box>
+        <BrandTitle sx={{ fontSize: "1.5rem", marginLeft: "1rem" }}>
+          Express Hair Salon
+        </BrandTitle>
         <List>
           {navItems.map((item) => (
             <Link
@@ -67,7 +71,7 @@ const MyDrawer = ({ container }) => {
               </ListItemButton>
             </Link>
           ))}
-          <Link to={"/booking"}>
+          <Link to={"/booking "} style={{ textDecoration: "none" }}>
             <ListItemButton>
               <CustomeButton text={"Book now"} variant={"contained"} />
             </ListItemButton>
