@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 
-const CustomeButton = ({ text, variant, handleClick = "" }) => {
+const CustomeButton = ({ text, variant, handleClick = () => {} }) => {
   const buttonStyles = {
     "&.MuiButton-root": {
       fontFamily: "Poppins",

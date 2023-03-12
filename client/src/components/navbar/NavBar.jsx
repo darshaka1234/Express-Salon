@@ -42,7 +42,7 @@ function DrawerAppBar(props) {
 
   return (
     <div>
-      <StyledAppBar>
+      <StyledAppBar position="sticky">
         <BrandDeatils />
         <StyledAppBarBox>
           {navItems.map((item) => (

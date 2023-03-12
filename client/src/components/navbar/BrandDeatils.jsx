@@ -2,11 +2,11 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import styled from "@mui/material/styles/styled";
 
-export const BrandDetailsContainer = styled(Box)(({ theme }) => ({
+export const BrandDetailsContainer = styled(Box)({
   display: "flex",
   flexDirection: "row",
   color: "black",
-}));
+});
 
 export const LogoImage = styled("img")(({ theme }) => ({
   width: "4rem",

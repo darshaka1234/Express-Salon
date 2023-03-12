@@ -1,39 +1,18 @@
-import { Grid, Stack, styled, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  BrandDetailsContainer,
-  BrandName,
-  BrandSlogan,
-  BrandTitle,
-  LogoImage,
-} from "../navbar/BrandDeatils";
+import { BrandDetailsContainer, BrandName } from "../navbar/BrandDeatils";
 import { navItems, NavLinkText } from "../navbar/Drawer";
-
-export const StyledStack = styled(Stack)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column",
-  },
-}));
-
-export const CopyrightText = styled(Typography)(({ theme }) => ({
-  color: "white",
-  textAlign: "center",
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "0.8rem",
-  },
-}));
-
-export const NavDiv = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  [theme.breakpoints.between("sm", "md")]: {
-    flexDirection: "row",
-  },
-}));
+import {
+  CopyrightText,
+  FooterBrandSlogan,
+  FooterBrandTitle,
+  FooterIcon,
+  FooterLogoImage,
+  FooterStack,
+  NavDiv,
+  StyledStack,
+} from "./footerItems";
 
 const images = [
   { name: "fb", src: "./assets/fb.png" },
@@ -50,27 +29,22 @@ const haircutData = [
 
 const Footer = () => {
   return (
-    <Grid container sx={{ bgcolor: "black" }}>
+    <Grid container sx={{ bgcolor: "black", padding: "0 1rem" }}>
       <Grid item xs={5}>
         <BrandDetailsContainer sx={{ color: "white" }}>
-          <LogoImage src="./assets/logowhite.png" alt="main logo" />
+          <FooterLogoImage src="./assets/logowhite.png" alt="main logo" />
           <BrandName>
-            <BrandTitle>Express Hair Salon</BrandTitle>
-            <BrandSlogan>
+            <FooterBrandTitle>Express Hair Salon</FooterBrandTitle>
+            <FooterBrandSlogan>
               712 N. Rush St. Chicago, IL 60611 (312) 751-1511
-            </BrandSlogan>
-            <Stack direction={"row"} justifyContent={"left"}>
-              {images.map((image) => (
-                <img
-                  src={image.src}
-                  alt={image.name}
-                  key={image.name}
-                  style={{ width: "2rem", height: "2rem", marginRight: "2rem" }}
-                />
-              ))}
-            </Stack>
+            </FooterBrandSlogan>
           </BrandName>
         </BrandDetailsContainer>
+        <FooterStack direction={"row"} justifyContent={"left"}>
+          {images.map((image) => (
+            <FooterIcon src={image.src} alt={image.name} key={image.name} />
+          ))}
+        </FooterStack>
       </Grid>
       <Grid item xs={3}></Grid>
       <Grid item xs={4}>

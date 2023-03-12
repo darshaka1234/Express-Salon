@@ -8,9 +8,17 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DateTimePicker from "@mui/lab/DateTimePicker";
+import {
+  DatePicker,
+  LocalizationProvider,
+  StaticTimePicker,
+  TimeClock,
+  //   TimePicker,
+} from "@mui/x-date-pickers";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const serviceOptions = [
   { value: "haircut", label: "Haircut" },
@@ -23,15 +31,16 @@ const BookingForm = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [serviceType, setServiceType] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [date, setDate] = useState(null);
+  const [time, setTime] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(
-      `Submitted data: ${firstName}, ${lastName}, ${email}, ${serviceType}, ${selectedDate}`
+      `Submitted data: ${firstName}, ${lastName}, ${email}, ${serviceType}, ${time}`
     );
   };
-
+  const CustomLeftArrowIcon = () => <ArrowLeftIcon style={{ color: "red" }} />;
   return (
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
@@ -74,17 +83,30 @@ const BookingForm = () => {
             ))}
           </Select>
         </FormControl>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateTimePicker
-            label="Select Date and Time"
-            inputFormat="MM/dd/yyyy hh:mm a"
-            value={selectedDate}
-            onChange={(newValue) => {
-              setSelectedDate(newValue);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
+        <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Date"
+              value={date}
+              onChange={(newValue) => setDate(newValue)}
+            />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <TimeClock
+              label="Time"
+              value={time}
+              onChange={(newValue) => setTime(newValue)}
+              views={["hours", "minutes"]}
+              ampmInClock
+              Slots={{ LeftArrowIcon: CustomLeftArrowIcon }}
+            /> */}
+            <StaticTimePicker
+              defaultValue={dayjs("2022-04-17T15:30")}
+              orientation="portrait"
+              ampmInClock
+            />
+          </LocalizationProvider>
+        </Stack>
         <Button type="submit" variant="contained">
           Submit
         </Button>
