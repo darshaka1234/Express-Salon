@@ -17,7 +17,7 @@ export const StyledAppBar = styled(AppBar)({
   justifyContent: "space-between",
   backgroundColor: "white",
   boxShadow: "none",
-  padding: "0  1rem",
+  padding: "0  2rem",
 });
 
 export const StyledAppBarBox = styled(Box)(({ theme }) => ({

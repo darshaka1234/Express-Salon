@@ -38,11 +38,13 @@ export const CardButton = styled(Typography)({
   cursor: "pointer",
 });
 
-const Card = ({ url, name, description }) => {
+const Card = ({ url, title, description, price }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate("/single-service");
+    navigate("/service", {
+      state: { data: { url, title, description, price } },
+    });
   };
 
   const handleReservationClick = (e) => {
@@ -53,7 +55,7 @@ const Card = ({ url, name, description }) => {
   return (
     <CardDiv onClick={handleCardClick}>
       <CardImage src={url} alt="" />
-      <CardTitle variant="h6">{name}</CardTitle>
+      <CardTitle variant="h6">{title}</CardTitle>
       <CardDetails>{description}</CardDetails>
       <CardButton variant="button" onClick={handleReservationClick}>
         Make A Reservation

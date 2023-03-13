@@ -1,12 +1,11 @@
 import { Box, styled, Typography } from "@mui/material";
 import React from "react";
 import NavBar from "../components/navbar/NavBar";
-import { textData } from "../data/rowData";
 import SectionDivider, { Title } from "../components/SectionDivider";
 import Footer from "../components/footer/Footer";
 import { Paragraph } from "./HomePage";
 import CustomeButton from "../components/CustomButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const ServiceDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -31,23 +30,25 @@ export const ServiceImage = styled("img")(({ theme }) => ({
 
 const ServicePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { url, title, description, price } = location.state?.data;
   return (
     <Box>
       <NavBar />
-      <ServiceImage src="./assets/1.jpg" alt="service_image" />
-      <SectionDivider title={"Woman Hair cut"} />
-      <Paragraph m={"0 2rem"}>{textData}</Paragraph>
+      <ServiceImage src={url} alt="service_image" />
+      <SectionDivider title={title} />
+      <Paragraph m={"0 2rem"}>{description}</Paragraph>
       <ServiceDiv>
         <Typography variant="h6">
           Opening Hours - Every Day 8.00 AM - 6.00 PM
         </Typography>
-        <Title sx={{ m: 0 }}>$ 220</Title>
+        <Title sx={{ m: 0 }}>{`$ ${price}`}</Title>
       </ServiceDiv>
       <div style={{ textAlign: "right", margin: "2rem" }}>
         <CustomeButton
           text={"Book now"}
           variant={"outlined"}
-          handleClick={() => navigate("/bookings")}
+          handleClick={() => navigate("/booking")}
         />
       </div>
 

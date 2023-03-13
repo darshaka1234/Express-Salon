@@ -1,118 +1,125 @@
-import React, { useState } from "react";
 import {
-  Stack,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
   FormControl,
   InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
 } from "@mui/material";
-import {
-  DatePicker,
-  LocalizationProvider,
-  StaticTimePicker,
-  TimeClock,
-  //   TimePicker,
-} from "@mui/x-date-pickers";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { productData } from "../../data/rowData";
+import { addNewAppointment } from "../../features/appointmentsSlice";
+import CustomeButton from "../CustomButton";
 
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
+const NewForm = () => {
+  const bookedAppointments = useSelector(
+    (state) => state.appointments?.appointments
+  );
 
-const serviceOptions = [
-  { value: "haircut", label: "Haircut" },
-  { value: "coloring", label: "Coloring" },
-  { value: "styling", label: "Styling" },
-];
+  const bookedTimeSlots = bookedAppointments?.map(
+    (item) => item.date + " " + item.time
+  );
+  const dispatch = useDispatch();
 
-const BookingForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [serviceType, setServiceType] = useState("");
-  const [date, setDate] = useState(null);
-  const [time, setTime] = useState(null);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    serviceType: "",
+    date: "",
+    time: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      `Submitted data: ${firstName}, ${lastName}, ${email}, ${serviceType}, ${time}`
-    );
+    const selectedTimeSlot = formData.date + " " + formData.time;
+    if (bookedTimeSlots.includes(selectedTimeSlot)) {
+      alert("This time slot is already booked. Please select another one.");
+    } else {
+      dispatch(addNewAppointment(formData));
+      // console.log(
+      //   `Submitted data: ${formData.firstName}, ${formData.lastName}, ${formData.email},
+      //  ${formData.serviceType}, ${formData.date}, ${formData.time}`
+      // );
+    }
   };
-  const CustomLeftArrowIcon = () => <ArrowLeftIcon style={{ color: "red" }} />;
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ padding: "2rem" }}>
       <Stack spacing={3}>
         <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
           <TextField
-            label="First Name"
+            name="firstName"
+            label="Frist Name"
             variant="outlined"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={formData.firstName}
+            onChange={handleInputChange}
             fullWidth
           />
           <TextField
+            name="lastName"
             label="Last Name"
             variant="outlined"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            value={formData.lastName}
+            onChange={handleInputChange}
             fullWidth
           />
         </Stack>
         <TextField
+          name="email"
           label="Email"
           variant="outlined"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          fullWidth
+          value={formData.email}
+          onChange={handleInputChange}
         />
         <FormControl variant="outlined" fullWidth>
           <InputLabel id="service-type-label">Service Type</InputLabel>
           <Select
             labelId="service-type-label"
-            id="service-type-select"
-            value={serviceType}
-            onChange={(e) => setServiceType(e.target.value)}
-            label="Service Type"
+            name="serviceType"
+            value={formData.serviceType}
+            onChange={handleInputChange}
           >
-            {serviceOptions.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
+            {productData.map((item) => (
+              <MenuItem key={item.id} value={item.name}>
+                {item.name}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
         <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Date"
-              value={date}
-              onChange={(newValue) => setDate(newValue)}
-            />
-          </LocalizationProvider>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            {/* <TimeClock
-              label="Time"
-              value={time}
-              onChange={(newValue) => setTime(newValue)}
-              views={["hours", "minutes"]}
-              ampmInClock
-              Slots={{ LeftArrowIcon: CustomLeftArrowIcon }}
-            /> */}
-            <StaticTimePicker
-              defaultValue={dayjs("2022-04-17T15:30")}
-              orientation="portrait"
-              ampmInClock
-            />
-          </LocalizationProvider>
+          <TextField
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleInputChange}
+            fullWidth
+          />
+          <TextField
+            type="time"
+            name="time"
+            value={formData.time}
+            onChange={handleInputChange}
+            fullWidth
+          />
         </Stack>
-        <Button type="submit" variant="contained">
-          Submit
-        </Button>
+        <CustomeButton
+          text={"Proceed"}
+          variant={"contained"}
+          handleClick={handleSubmit}
+        />
       </Stack>
     </form>
   );
 };
 
-export default BookingForm;
+export default NewForm;

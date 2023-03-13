@@ -1,16 +1,24 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import BookingForm from "./components/form/BookingForm";
+import { fetchAppointments } from "./features/appointmentsSlice";
 import BookingPage from "./screens/BookingPage";
 import HomePage from "./screens/HomePage";
 import ServicePage from "./screens/ServicePage";
+import SuccessPage from "./screens/SuccessPage";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAppointments());
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/service" element={<ServicePage />} />
       <Route path="/booking" element={<BookingPage />} />
-      <Route path="/test" element={<BookingForm />} />
+      <Route path="/success" element={<SuccessPage />} />
     </Routes>
   );
 }

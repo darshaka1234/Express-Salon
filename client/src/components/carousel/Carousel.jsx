@@ -11,6 +11,7 @@ const product = productData.map((item) => (
     name={item.name}
     url={item.imageurl}
     description={item.description}
+    price={item.price}
     key={item.id}
   />
 ));
