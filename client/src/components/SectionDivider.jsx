@@ -5,7 +5,7 @@ export const Title = styled(Typography)({
   fontFamily: "Poppins",
   textAlign: "left",
   fontSize: "1.8rem",
-  fontWeight: 600,
+  fontWeight: 700,
   margin: "0 2rem",
   marginTop: "1rem",
 });

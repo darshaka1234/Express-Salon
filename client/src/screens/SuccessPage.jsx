@@ -1,7 +1,57 @@
+import { Box, Stack, styled } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import CustomeButton from "../components/CustomButton";
+import Footer from "../components/footer/Footer";
+import NavBar from "../components/navbar/NavBar";
+import { Title } from "../components/SectionDivider";
+import { Paragraph } from "./HomePage";
+
+export const SucessStack = styled(Stack)(({ theme }) => ({
+  justifyContent: "center",
+  margin: "3rem 0 ",
+  alignItems: "center",
+}));
+
+export const SucessTitle = styled(Title)({
+  textAlign: "center",
+});
+
+export const SucessBox = styled(Box)({
+  height: "64vh",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: "5rem",
+});
 
 const SuccessPage = () => {
-  return <div>SuccessPage</div>;
+  const navigate = useNavigate();
+  return (
+    <Box>
+      <NavBar />
+      <SucessBox>
+        <SucessTitle>Appointment Successful</SucessTitle>
+        <SucessTitle m="0 0 2rem 0">Thank you </SucessTitle>
+        <Paragraph sx={{ maxWidth: "60%", m: "auto", textAlign: "center" }}>
+          Lorem ipsum is placeholder text commonly used in the graphic, print,
+          and publishing industries for previewing layouts and visual mockups.
+        </Paragraph>
+        <SucessStack direction={{ xs: "column", sm: "row" }} spacing={2}>
+          <CustomeButton
+            text={"Home"}
+            variant={"contained"}
+            handleClick={() => navigate("/")}
+          />
+          <CustomeButton
+            text={"View appointents"}
+            variant={"outlined"}
+            handleClick={() => navigate("/appointments")}
+          />
+        </SucessStack>
+      </SucessBox>
+      <Footer />
+    </Box>
+  );
 };
 
 export default SuccessPage;
