@@ -31,7 +31,7 @@ export const StyledAppBarBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-function DrawerAppBar(props) {
+const NavBar = (props) => {
   const disptch = useDispatch();
   const { window } = props;
   const container =
@@ -73,6 +73,6 @@ function DrawerAppBar(props) {
       </Box>
     </div>
   );
-}
+};
 
-export default DrawerAppBar;
+export default NavBar;

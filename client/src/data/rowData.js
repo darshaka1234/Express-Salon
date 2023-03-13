@@ -84,3 +84,27 @@ export const productData = [
       "Some Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do  . about the product..",
   },
 ];
+
+export const user = {
+  userId: 1,
+  fristName: "darshaka",
+  lastName: "srimal",
+  email: "darshaka@gmail.com",
+  telephone: "0774545513",
+  appointments: [
+    {
+      appointmentId: 1,
+      serviceType: "woman hair cut",
+      date: "12-04-2013",
+      time: "12.35AM",
+      price: "$220",
+    },
+    {
+      appointmentId: 2,
+      serviceType: "woman hair cut",
+      date: "12-04-2013",
+      time: "12.35AM",
+      price: "$220",
+    },
+  ],
+};
