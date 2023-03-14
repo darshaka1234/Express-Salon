@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { productData } from "../../data/rowData";
 import { addNewAppointment } from "../../features/appointmentsSlice";
-import CustomeButton from "../CustomButton";
+import { CustomButton } from "../navbar/NavBar";
 
 const NewForm = () => {
   const bookedAppointments = useSelector(
@@ -112,11 +112,9 @@ const NewForm = () => {
             fullWidth
           />
         </Stack>
-        <CustomeButton
-          text={"Proceed"}
-          variant={"contained"}
-          handleClick={handleSubmit}
-        />
+        <CustomButton variant="contained" onClick={handleSubmit}>
+          Proceed
+        </CustomButton>
       </Stack>
     </form>
   );

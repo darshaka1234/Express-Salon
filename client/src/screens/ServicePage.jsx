@@ -4,7 +4,7 @@ import NavBar from "../components/navbar/NavBar";
 import SectionDivider, { Title } from "../components/SectionDivider";
 import Footer from "../components/footer/Footer";
 import { Paragraph } from "./HomePage";
-import CustomeButton from "../components/CustomButton";
+import { CustomButton } from "../components/navbar/NavBar";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export const ServiceDiv = styled("div")(({ theme }) => ({
@@ -45,11 +45,9 @@ const ServicePage = () => {
         <Title sx={{ m: 0 }}>{`$ ${price}`}</Title>
       </ServiceDiv>
       <div style={{ textAlign: "right", margin: "2rem" }}>
-        <CustomeButton
-          text={"Book now"}
-          variant={"outlined"}
-          handleClick={() => navigate("/booking")}
-        />
+        <CustomButton variant={"outlined"} onClick={() => navigate("/booking")}>
+          Book now
+        </CustomButton>
       </div>
 
       <Footer />

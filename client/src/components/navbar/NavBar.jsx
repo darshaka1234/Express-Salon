@@ -8,8 +8,7 @@ import MyDrawer, { navItems, NavLinkText } from "./Drawer";
 import { useDispatch } from "react-redux";
 import { toggle } from "../../features/mobileSlice";
 import { Link } from "react-router-dom";
-import CustomeButton from "../CustomButton";
-import { styled } from "@mui/material";
+import { Button, styled } from "@mui/material";
 
 export const StyledAppBar = styled(AppBar)({
   display: "flex",
@@ -29,6 +28,20 @@ export const StyledAppBarBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     display: "none",
   },
+}));
+
+export const CustomButton = styled(Button)(({ variant }) => ({
+  fontFamily: "Poppins",
+  fontSize: "1rem",
+  height: "3rem",
+  textTransform: "none",
+  ...(variant === "contained" && {
+    backgroundColor: "black",
+  }),
+  ...(variant === "outlined" && {
+    color: "black",
+    border: "1px black solid",
+  }),
 }));
 
 const NavBar = (props) => {
@@ -55,7 +68,7 @@ const NavBar = (props) => {
             </Link>
           ))}
           <Link to={"/booking"} style={{ textDecoration: "none" }}>
-            <CustomeButton text={"Book now"} variant={"contained"} />
+            <CustomButton variant={"contained"}>Book Now</CustomButton>
           </Link>
         </StyledAppBarBox>
         <IconButton

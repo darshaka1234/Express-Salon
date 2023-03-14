@@ -49,7 +49,7 @@ const Card = ({ url, title, description, price }) => {
 
   const handleReservationClick = (e) => {
     e.stopPropagation();
-    navigate("/bookings");
+    navigate("/booking");
   };
 
   return (

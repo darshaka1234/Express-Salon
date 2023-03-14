@@ -1,9 +1,8 @@
 import { Box, Stack, styled } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CustomeButton from "../components/CustomButton";
 import Footer from "../components/footer/Footer";
-import NavBar from "../components/navbar/NavBar";
+import NavBar, { CustomButton } from "../components/navbar/NavBar";
 import { Title } from "../components/SectionDivider";
 import { Paragraph } from "./HomePage";
 
@@ -37,16 +36,15 @@ const SuccessPage = () => {
           and publishing industries for previewing layouts and visual mockups.
         </Paragraph>
         <SucessStack direction={{ xs: "column", sm: "row" }} spacing={2}>
-          <CustomeButton
-            text={"Home"}
-            variant={"contained"}
-            handleClick={() => navigate("/")}
-          />
-          <CustomeButton
-            text={"View appointents"}
+          <CustomButton variant={"contained"} handleClick={() => navigate("/")}>
+            Home
+          </CustomButton>
+          <CustomButton
             variant={"outlined"}
             handleClick={() => navigate("/appointments")}
-          />
+          >
+            View appointents
+          </CustomButton>
         </SucessStack>
       </SucessBox>
       <Footer />

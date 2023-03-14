@@ -1,9 +1,9 @@
 import { Grid, styled, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Carousel from "../components/carousel/Carousel";
-import CustomeButton from "../components/CustomButton";
 import Footer from "../components/footer/Footer";
-import NavBar from "../components/navbar/NavBar";
+import NavBar, { CustomButton } from "../components/navbar/NavBar";
 import SectionDivider, { Title } from "../components/SectionDivider";
 import { textData, textData2 } from "../data/rowData";
 
@@ -49,6 +49,7 @@ export const Round = styled("div")({
 });
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const roundData = [
     { number: "25+", service: "Years" },
     { number: "1K+", service: "Users" },
@@ -70,7 +71,12 @@ const HomePage = () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et incididunt ut labore et
             </Paragraph>
-            <CustomeButton variant={"outlined"} text={"Book now"} />
+            <CustomButton
+              variant={"outlined"}
+              onClick={() => navigate("/booking")}
+            >
+              Book now
+            </CustomButton>
           </WelcomeDiv>
           <WelcomeDiv>
             <WelcomeImage src="./assets/welcome.jpg" alt="welcome_image" />

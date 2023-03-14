@@ -10,8 +10,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toggle } from "../../features/mobileSlice";
-import CustomeButton from "../CustomButton";
 import { BrandTitle } from "./BrandDeatils";
+import { CustomButton } from "./NavBar";
 
 export const navItems = [
   { name: "Home", to: "/" },
@@ -73,7 +73,7 @@ const MyDrawer = ({ container }) => {
           ))}
           <Link to={"/booking "} style={{ textDecoration: "none" }}>
             <ListItemButton>
-              <CustomeButton text={"Book now"} variant={"contained"} />
+              <CustomButton variant="contained">Book now</CustomButton>
             </ListItemButton>
           </Link>
         </List>
