@@ -6,6 +6,7 @@ import AppointmentPage from "./screens/AppointmentPage";
 import BookingPage from "./screens/BookingPage";
 import HomePage from "./screens/HomePage";
 import LogInModal from "./screens/LogInModal";
+import PaymentModal from "./screens/PaymentModal";
 import RegisterModal from "./screens/RegisterModal";
 import ServicePage from "./screens/ServicePage";
 import SuccessPage from "./screens/SuccessPage";
@@ -24,6 +25,7 @@ function App() {
       <Route path="/login" element={<LogInModal />} />
       <Route path="/register" element={<RegisterModal />} />
       <Route path="/booking" element={<BookingPage />} />
+      <Route path="/payment" element={<PaymentModal />} />
       <Route path="/success" element={<SuccessPage />} />
       <Route path="/appointments" element={<AppointmentPage />} />
     </Routes>

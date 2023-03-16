@@ -22,7 +22,7 @@ const RegisterModal = () => {
 
   const handleSubmit = () => {
     axios
-      .post("http://localhost/5000/users", formik.values)
+      .post("http://localhost/5000/api/users/register", formik.values)
       .then(navigate("/booking"));
   };
   const formik = useFormik({

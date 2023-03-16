@@ -21,7 +21,9 @@ const LogInModal = () => {
   }, []);
 
   const handleSubmit = () => {
-    axios.post("http://localhost/5000/users").then(navigate("/booking"));
+    axios
+      .post("http://localhost/5000/api/users/login", formik.values)
+      .then(navigate("/booking"));
   };
   const formik = useFormik({
     initialValues: {
