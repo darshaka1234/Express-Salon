@@ -49,6 +49,7 @@ const NavBar = (props) => {
   const { window } = props;
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
   const handleDrawerToggle = () => {
     disptch(toggle());
   };
@@ -67,7 +68,7 @@ const NavBar = (props) => {
               <NavLinkText>{item.name}</NavLinkText>
             </Link>
           ))}
-          <Link to={"/booking"} style={{ textDecoration: "none" }}>
+          <Link to={"/login"} style={{ textDecoration: "none" }}>
             <CustomButton variant={"contained"}>Book Now</CustomButton>
           </Link>
         </StyledAppBarBox>

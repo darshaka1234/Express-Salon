@@ -4,7 +4,7 @@ import Stripe from "stripe";
 dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export const payment = async (req, res) => {
+const payment = async (req, res) => {
   try {
     const { amount, token } = req.body;
 
@@ -20,3 +20,5 @@ export const payment = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+export default payment;

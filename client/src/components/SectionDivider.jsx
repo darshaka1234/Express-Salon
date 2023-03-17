@@ -6,13 +6,12 @@ export const Title = styled(Typography)({
   textAlign: "left",
   fontSize: "1.8rem",
   fontWeight: 700,
-  marginTop: "1rem",
 });
 
 export const SectionLine = styled("hr")({
   border: "1px solid black",
   padding: "auto",
-  marginBottom: "2rem",
+  margin: "0 0 2rem 0",
 });
 
 export const SectionDiv = styled("div")({

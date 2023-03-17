@@ -1,20 +1,10 @@
 import React from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import { productData } from "../../data/rowData";
 import Card from "./Card";
+import { useSelector } from "react-redux";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
-const product = productData.map((item) => (
-  <Card
-    name={item.name}
-    url={item.imageurl}
-    description={item.description}
-    price={item.price}
-    key={item.id}
-  />
-));
 
 const responsive = {
   0: {
@@ -62,7 +52,20 @@ const renderPrevButton = ({ isDisabled }) => {
 };
 
 const Carousel = () => {
-  return (
+  const { status, services } = useSelector((state) => state.allServices);
+
+  const product = services?.map((item) => (
+    <Card
+      name={item.name}
+      url={item.imageUrl}
+      description={item.description}
+      price={item.price}
+      key={item._id}
+    />
+  ));
+  return status ? (
+    <p>"loading"</p>
+  ) : (
     <AliceCarousel
       mouseTracking
       items={product}

@@ -6,18 +6,15 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-// import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import React from "react";
 import NavBar from "../components/navbar/NavBar";
 import SectionDivider from "../components/SectionDivider";
-import { user } from "../data/rowData";
 
-const AppointmentPage = ({ id }) => {
-  //   const [user, setUser] = useState({});
-  //   useEffect(async () => {
-  //     const { data } = await axios.get(`http://localhost:5000/users/${id}`);
-  //     setUser(data);
-  //   }, []);
-  const { fristName, lastName, email, telephone, appointments } = user;
+const AppointmentPage = () => {
+  const { fristName, lastName, email, telephone, appointments } = useSelector(
+    (state) => state.user.user
+  );
   return (
     <Box>
       <NavBar />
@@ -55,7 +52,7 @@ const AppointmentPage = ({ id }) => {
         spacing={2}
       >
         {appointments.map((item) => (
-          <Box>
+          <Box key={item._id}>
             <Typography variant="h6">{`Appointment ${item.appointmentId}`}</Typography>
             <Typography>{item.serviceType}</Typography>
             <Typography>{`${item.date} ${item.time}`}</Typography>

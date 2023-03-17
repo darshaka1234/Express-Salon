@@ -1,9 +1,10 @@
 import { Box, Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import BookingForm from "../components/form/BookingForm";
 import NavBar from "../components/navbar/NavBar";
 import Footer from "../components/footer/Footer";
-import { ServiceImage } from "./ServicePage";
+import Cart from "../components/form/Cart";
+import Carousel from "../components/carousel/Carousel";
 
 const BookingPage = () => {
   return (
@@ -16,9 +17,10 @@ const BookingPage = () => {
           <BookingForm />
         </Grid>
         <Grid item xs={12} md={6} sx={{ pr: "2rem" }}>
-          <ServiceImage src="./assets/fil.jpg" alt="fill_image" />
+          <Cart />
         </Grid>
       </Grid>
+      <Carousel />
       <Footer />
     </Box>
   );

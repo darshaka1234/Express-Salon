@@ -1,15 +1,18 @@
 import { Dialog, TextField, Stack, Typography } from "@mui/material";
-import axios from "axios";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CardButton } from "../components/carousel/Card";
 import { RegisterValidationSchema } from "../components/form/validationSchemas";
 import { CustomButton } from "../components/navbar/NavBar";
 import { Title } from "../components/SectionDivider";
+import { addUser } from "../features/allUsersSlice";
+import { userRegister } from "../features/userSlice";
 
 const RegisterModal = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const handleClick = () => {
@@ -21,9 +24,10 @@ const RegisterModal = () => {
   }, []);
 
   const handleSubmit = () => {
-    axios
-      .post("http://localhost/5000/api/users/register", formik.values)
-      .then(navigate("/booking"));
+    console.log(formik.values);
+    dispatch(userRegister(formik.values));
+    dispatch(addUser(formik.values));
+    navigate("/booking");
   };
   const formik = useFormik({
     initialValues: {

@@ -8,31 +8,42 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { productData } from "../../data/rowData";
-import { addNewAppointment } from "../../features/appointmentsSlice";
+import { addAppointment } from "../../features/currentAppointmentSlice";
+import { makeClose, makeOpen } from "../../features/selectSlice";
 import { CustomButton } from "../navbar/NavBar";
 
 const NewForm = () => {
-  const bookedAppointments = useSelector(
-    (state) => state.appointments?.appointments
-  );
+  const allUsers = useSelector((state) => state.allUsers?.users);
+  const services = useSelector((state) => state.allServices?.services);
+  const open = useSelector((state) => state.select?.value);
 
+  const bookedAppointments = Object.values(allUsers)
+    .flatMap((user) => user.appointments)
+    .flat();
   const bookedTimeSlots = bookedAppointments?.map(
     (item) => item.date + " " + item.time
   );
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
     serviceType: "",
     date: "",
     time: "",
+    price: 0,
   });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value.name,
+      price: value.price,
+    }));
+  };
+
+  const handleSelectChange = (event) => {
+    const { name, value } = event.target;
+    dispatch(makeClose());
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -45,10 +56,9 @@ const NewForm = () => {
     if (bookedTimeSlots.includes(selectedTimeSlot)) {
       alert("This time slot is already booked. Please select another one.");
     } else {
-      dispatch(addNewAppointment(formData));
+      dispatch(addAppointment(formData));
       // console.log(
-      //   `Submitted data: ${formData.firstName}, ${formData.lastName}, ${formData.email},
-      //  ${formData.serviceType}, ${formData.date}, ${formData.time}`
+      //   `Submitted data: ${formData.serviceType}, ${formData.date}, ${formData.time}, ${formData.price}`
       // );
     }
   };
@@ -56,41 +66,19 @@ const NewForm = () => {
   return (
     <form onSubmit={handleSubmit} style={{ padding: "2rem" }}>
       <Stack spacing={3}>
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-          <TextField
-            name="firstName"
-            label="Frist Name"
-            variant="outlined"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            fullWidth
-          />
-          <TextField
-            name="lastName"
-            label="Last Name"
-            variant="outlined"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            fullWidth
-          />
-        </Stack>
-        <TextField
-          name="email"
-          label="Email"
-          variant="outlined"
-          value={formData.email}
-          onChange={handleInputChange}
-        />
         <FormControl variant="outlined" fullWidth>
           <InputLabel id="service-type-label">Service Type</InputLabel>
           <Select
             labelId="service-type-label"
             name="serviceType"
             value={formData.serviceType}
-            onChange={handleInputChange}
+            onChange={handleSelectChange}
+            onClose={() => dispatch(makeClose())}
+            onOpen={() => dispatch(makeOpen())}
+            open={open}
           >
-            {productData.map((item) => (
-              <MenuItem key={item.id} value={item.name}>
+            {services?.map((item) => (
+              <MenuItem key={item._id} value={item}>
                 {item.name}
               </MenuItem>
             ))}
@@ -112,8 +100,8 @@ const NewForm = () => {
             fullWidth
           />
         </Stack>
-        <CustomButton variant="contained" onClick={handleSubmit}>
-          Proceed
+        <CustomButton variant="outlined" onClick={handleSubmit}>
+          Add service
         </CustomButton>
       </Stack>
     </form>

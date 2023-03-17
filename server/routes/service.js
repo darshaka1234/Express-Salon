@@ -1,8 +1,8 @@
 import { Router } from "express";
-import pay from "../controllers/payment.js";
+import allServices from "../controllers/service.js";
 
 const router = Router();
 
-router.post("/", pay);
+router.get("/", allServices);
 
 export default router;

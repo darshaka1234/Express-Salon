@@ -1,15 +1,17 @@
 import { Dialog, TextField, Stack, Typography } from "@mui/material";
-import axios from "axios";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CardButton } from "../components/carousel/Card";
 import { LoginValidationSchema } from "../components/form/validationSchemas";
 import { CustomButton } from "../components/navbar/NavBar";
 import { Title } from "../components/SectionDivider";
+import { userLogin } from "../features/userSlice";
 
 const LogInModal = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const handleClick = () => {
@@ -21,9 +23,8 @@ const LogInModal = () => {
   }, []);
 
   const handleSubmit = () => {
-    axios
-      .post("http://localhost/5000/api/users/login", formik.values)
-      .then(navigate("/booking"));
+    dispatch(userLogin(formik.values));
+    navigate("/booking");
   };
   const formik = useFormik({
     initialValues: {
