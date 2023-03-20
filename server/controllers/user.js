@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 export const register = async (req, res) => {
   try {
     const { firstName, lastName, email, telephone, password } = req.body;
@@ -41,19 +43,37 @@ export const login = async (req, res) => {
 };
 
 export const Booking = async (req, res) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.ADMIN_EMAIL,
+      pass: process.env.APP_PASSWORD,
+    },
+  });
+
   try {
-    const { appointments } = req.body;
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      { appointments },
-      {
-        new: true,
-      }
-    );
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json("Not found");
     }
-    res.status(200).json(user);
+    user.appointments = req.body;
+    const updatedUser = await user.save();
+    const mailOptions = {
+      from: process.env.ADMIN_EMAIL,
+      to: updatedUser.email,
+      subject: "Appoinment was successful",
+      text: `service type: ${updatedUser.appointments[0].serviceType}
+      date: ${updatedUser.appointments[0].date}  ${updatedUser.appointments[0].time}
+       price: ${updatedUser.appointments[0].price}`,
+    };
+    res.status(200).json(updatedUser);
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
   } catch (error) {
     res.status(500).json(error);
   }

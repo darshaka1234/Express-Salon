@@ -10,9 +10,9 @@ const PaymentModal = ({ amount }) => {
   const dispatch = useDispatch();
   const { _id, email } = useSelector((state) => state.user.user);
   const appointments = useSelector(
-    (state) => state.currentAppointments?.appointments
+    (state) => state.currentAppointment.appointments
   );
-
+  console.log(appointments);
   const navigate = useNavigate();
   const publishableKey =
     "pk_test_51MllbxFrCWngvYq5E8ntlbXdLLgBR58maBbLppk88qE2ciWkJ6xUxxP2uPG4C7gHeC1Oh1dK66GsCc6cK5rLDC8Y00mxtYGSay";
@@ -23,7 +23,7 @@ const PaymentModal = ({ amount }) => {
         token: token,
       });
       console.log(response.data);
-      dispatch(userBooking(_id, appointments));
+      dispatch(userBooking({ _id, appointments }));
       navigate("/success");
     } catch (error) {
       console.log(error);

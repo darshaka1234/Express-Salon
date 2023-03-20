@@ -26,9 +26,10 @@ export const userRegister = createAsyncThunk(
 
 export const userBooking = createAsyncThunk(
   "users/userBooking",
-  async (userId, appointment) => {
+  async ({ _id, appointments }) => {
     try {
-      const response = await axios.put(`${baseUrl}/:${userId}`, appointment);
+      console.log(appointments);
+      const response = await axios.put(`${baseUrl}/${_id}`, appointments);
       return response.data;
     } catch (error) {
       console.log(error);

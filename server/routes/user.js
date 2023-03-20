@@ -6,6 +6,6 @@ const router = Router();
 router.get("/", allUsers);
 router.post("/register", register);
 router.post("/login", login);
-router.put("/booking", Booking);
+router.put("/:id", Booking);
 
 export default router;

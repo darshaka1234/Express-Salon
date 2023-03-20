@@ -10,8 +10,9 @@ import { makeOpen } from "../../features/selectSlice";
 
 const Cart = () => {
   const appointments = useSelector(
-    (state) => state.currentAppointments?.appointments
+    (state) => state.currentAppointment.appointments
   );
+
   const dispatch = useDispatch();
   const amount = appointments?.reduce(
     (accumulator, appointment) => accumulator + appointment.price,

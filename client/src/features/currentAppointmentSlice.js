@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const currentAppointmentSlice = createSlice({
-  name: "currentAppointments",
+  name: "currentAppointment",
   initialState: {
     appointments: [],
   },
@@ -10,7 +10,7 @@ export const currentAppointmentSlice = createSlice({
       state.appointments.push(payload);
     },
     removeAppointment: (state, { payload }) => {
-      state.appointments = state.currentAppointments.filter(
+      state.appointments = state.appointments.filter(
         (item) => item.serviceType !== payload
       );
     },

@@ -32,18 +32,21 @@ const NewForm = () => {
     price: 0,
   });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value.name,
-      price: value.price,
-    }));
-  };
-
   const handleSelectChange = (event) => {
     const { name, value } = event.target;
     dispatch(makeClose());
+
+    const selectedItem = services.find((item) => item.name === value);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: selectedItem.name,
+      price: selectedItem.price,
+    }));
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -57,9 +60,6 @@ const NewForm = () => {
       alert("This time slot is already booked. Please select another one.");
     } else {
       dispatch(addAppointment(formData));
-      // console.log(
-      //   `Submitted data: ${formData.serviceType}, ${formData.date}, ${formData.time}, ${formData.price}`
-      // );
     }
   };
 
@@ -78,7 +78,7 @@ const NewForm = () => {
             open={open}
           >
             {services?.map((item) => (
-              <MenuItem key={item._id} value={item}>
+              <MenuItem key={item._id} value={item.name}>
                 {item.name}
               </MenuItem>
             ))}
