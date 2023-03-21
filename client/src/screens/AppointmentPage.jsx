@@ -56,7 +56,7 @@ const AppointmentPage = () => {
           <Box key={item._id}>
             <Typography variant="h6">{item.serviceType}</Typography>
             <Typography>
-              {moment(item.date).utc().format("YYYY-MM-DD")}
+              {`${moment(item.date).utc().format("YYYY-MM-DD")} ${item.time}`}
             </Typography>
             <Typography>{item.price}</Typography>
           </Box>
