@@ -3,13 +3,13 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CardButton } from "../components/carousel/Card";
 import { LoginValidationSchema } from "../components/form/validationSchemas";
-import { CustomButton } from "../components/navbar/NavBar";
-import { Title } from "../components/SectionDivider";
 import { userLogin } from "../features/userSlice";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
+import { CardButton, Title } from "../styles/typos";
+import { CustomButton } from "../styles/buttons";
+
 const LogInModal = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,7 +21,8 @@ const LogInModal = () => {
 
   const location = useLocation();
   const values = queryString.parse(location.search);
-  const destination = values.data || "/booking";
+  const destination =
+    values.data === "/appointments" ? values.data : "/booking";
 
   useEffect(() => {
     handleClick();

@@ -1,52 +1,17 @@
-import { Grid, styled, Typography } from "@mui/material";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Grid, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Carousel from "../components/carousel/Carousel";
 import Footer from "../components/footer/Footer";
-import NavBar, { CustomButton } from "../components/navbar/NavBar";
-import SectionDivider, { Title } from "../components/SectionDivider";
+import NavBar from "../components/navbar/NavBar";
+import SectionDivider from "../components/SectionDivider";
 import { textData, textData2 } from "../data/rowData";
-
-export const WelcomeContainer = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  marginLeft: "7rem",
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column-reverse",
-    marginLeft: "2rem",
-  },
-}));
-
-export const WelcomeDiv = styled("div")(({ theme }) => ({
-  width: "50%",
-  [theme.breakpoints.down("md")]: {
-    width: "100%",
-  },
-}));
-
-export const WelcomeImage = styled("img")(({ theme }) => ({
-  width: "100%",
-  height: "auto",
-  [theme.breakpoints.down("md")]: {
-    width: "100%",
-  },
-}));
-
-export const Paragraph = styled(Typography)({
-  fontFamily: "Poppins",
-  marginBottom: "2rem",
-});
-
-export const Round = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  width: "10rem",
-  height: "10rem",
-  borderRadius: "100%",
-  backgroundColor: "#B99A5F",
-  justifyContent: "center",
-  alignItems: "center",
-});
+import queryString from "query-string";
+import { useSelector } from "react-redux";
+import { CustomButton } from "../styles/buttons";
+import { Paragraph, Title } from "../styles/typos";
+import { Round, WelcomeContainer, WelcomeDiv } from "../styles/surfaces";
+import { WelcomeImage } from "../styles/images";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -56,8 +21,17 @@ const HomePage = () => {
     { number: "1M+", service: "Likes" },
     { number: "100+", service: "Styles" },
   ];
+  const location = useLocation();
+  const { data } = queryString.parse(location.search);
+  const num = useSelector((state) => state.number.value);
+
+  useEffect(() => {
+    if (data === "service") window.scroll({ top: 600, behavior: "smooth" });
+    else if (data === "about") window.scroll({ top: 1100, behavior: "smooth" });
+  }, [data, num]);
+
   return (
-    <Grid container>
+    <Grid container id="serv">
       <Grid item xs={12}>
         <NavBar />
       </Grid>

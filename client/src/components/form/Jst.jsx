@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addAppointment } from "../../features/currentAppointmentSlice";
 import { makeClose, makeOpen } from "../../features/selectSlice";
-import { CustomButton } from "../navbar/NavBar";
+
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -20,6 +20,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { StaticTimePicker } from "@mui/x-date-pickers";
 import moment from "moment";
 import dayjs from "dayjs";
+import { CustomButton } from "../../styles/buttons";
 
 const NewForm = () => {
   const allUsers = useSelector((state) => state.allUsers?.users);

@@ -1,29 +1,13 @@
-import { Box, Stack, styled } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/footer/Footer";
-import NavBar, { CustomButton } from "../components/navbar/NavBar";
-import { Title } from "../components/SectionDivider";
+import NavBar from "../components/navbar/NavBar";
 import { logout } from "../features/userSlice";
-import { Paragraph } from "./HomePage";
-
-export const SucessStack = styled(Stack)(({ theme }) => ({
-  justifyContent: "center",
-  margin: "3rem 0 ",
-  alignItems: "center",
-}));
-
-export const SucessTitle = styled(Title)({
-  textAlign: "center",
-});
-
-export const SucessBox = styled(Box)({
-  height: "64vh",
-  justifyContent: "center",
-  alignItems: "center",
-  marginTop: "5rem",
-});
+import { CustomButton } from "../styles/buttons";
+import { SucessBox, SucessStack } from "../styles/surfaces";
+import { Paragraph, SucessTitle } from "../styles/typos";
 
 const SuccessPage = () => {
   const navigate = useNavigate();

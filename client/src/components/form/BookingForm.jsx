@@ -44,17 +44,6 @@ const NewForm = () => {
       const appointmentEnd = new Date(
         appointmentStart.getTime() + appointment.duration * 60 * 1000
       );
-      console.log("appo data", bookedAppointments[0].duration);
-      console.log(
-        "fs",
-        start,
-        "as",
-        appointmentStart,
-        "fe",
-        end,
-        "ae",
-        appointmentEnd
-      );
       return (
         (start <= appointmentStart && end > appointmentStart) ||
         (start < appointmentEnd && end > appointmentEnd)

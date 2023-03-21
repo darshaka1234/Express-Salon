@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import allUsersSlice from "../features/allUsersSlice";
 import mobileReducer from "../features/mobileSlice";
 import userSlice from "../features/userSlice";
+import numberReducer from "../features/numberSlice";
 import selectReducer from "../features/selectSlice";
 import serviceReducer from "../features/serviceSlice";
 import currentAppointmentReducer from "../features/currentAppointmentSlice";
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   select: selectReducer,
   allServices: serviceReducer,
   currentAppointment: currentAppointmentReducer,
+  number: numberReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -30,13 +32,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-// export const store = configureStore({
-//   reducer: {
-//     mobile: mobileReducer,
-//     allUsers: allUsersSlice,
-//     user: userSlice,
-//     select: selectReducer,
-//     allServices: serviceReducer,
-//     currentAppointment: currentAppointmentReducer,
-//   },
-// });

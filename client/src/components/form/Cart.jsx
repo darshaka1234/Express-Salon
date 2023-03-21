@@ -2,11 +2,12 @@ import { Box, IconButton, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PaymentModal from "../../screens/PaymentModal";
-import SectionDivider, { Title } from "../SectionDivider";
+import SectionDivider from "../SectionDivider";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { removeAppointment } from "../../features/currentAppointmentSlice";
 import { makeOpen } from "../../features/selectSlice";
+import { Title } from "../../styles/typos";
 
 const Cart = () => {
   const appointments = useSelector(

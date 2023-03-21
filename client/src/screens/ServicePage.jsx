@@ -1,33 +1,14 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import NavBar from "../components/navbar/NavBar";
-import SectionDivider, { Title } from "../components/SectionDivider";
+import SectionDivider from "../components/SectionDivider";
 import Footer from "../components/footer/Footer";
-import { Paragraph } from "./HomePage";
-import { CustomButton } from "../components/navbar/NavBar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-export const ServiceDiv = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  margin: "0 2rem",
-  [theme.breakpoints.down("sm")]: {
-    flexDirection: "column",
-  },
-}));
-
-export const ServiceImage = styled("img")(({ theme }) => ({
-  width: "95%",
-  height: "auto",
-  objectFit: "cover",
-  maxHeight: "70vh",
-  margin: "2rem",
-  [theme.breakpoints.down("sm")]: {
-    width: "80%",
-  },
-}));
+import { CustomButton } from "../styles/buttons";
+import { Paragraph, Title } from "../styles/typos";
+import { ServiceImage } from "../styles/images";
+import { ServiceDiv } from "../styles/surfaces";
 
 const ServicePage = () => {
   const navigate = useNavigate();

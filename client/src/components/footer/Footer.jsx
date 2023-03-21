@@ -1,18 +1,21 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import { BrandDetailsContainer, BrandName } from "../navbar/BrandDeatils";
-import { navItems, NavLinkText } from "../navbar/Drawer";
+import { FooterIcon, FooterLogoImage } from "../../styles/images";
+import {
+  BrandDetailsContainer,
+  BrandName,
+  FooterStack,
+  NavDiv,
+  StyledStack,
+} from "../../styles/surfaces";
 import {
   CopyrightText,
   FooterBrandSlogan,
   FooterBrandTitle,
-  FooterIcon,
-  FooterLogoImage,
-  FooterStack,
-  NavDiv,
-  StyledStack,
-} from "./footerItems";
+  NavLinkText,
+} from "../../styles/typos";
+import { navItems } from "../navbar/Drawer";
 
 const images = [
   { name: "fb", src: "./assets/fb.png" },

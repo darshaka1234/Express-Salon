@@ -1,6 +1,5 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
-// import BookingForm from "../components/form/BookingForm";
 import NavBar from "../components/navbar/NavBar";
 import Footer from "../components/footer/Footer";
 import Cart from "../components/form/Cart";
@@ -15,7 +14,6 @@ const BookingPage = () => {
           <NavBar />
         </Grid>
         <Grid item xs={12} md={6}>
-          {/* <BookingForm /> */}
           <Jst />
         </Grid>
         <Grid item xs={12} md={6} sx={{ pr: "2rem" }}>

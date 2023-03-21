@@ -1,17 +1,10 @@
-import {
-  Box,
-  Drawer,
-  List,
-  ListItemButton,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, Drawer, List, ListItemButton } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toggle } from "../../features/mobileSlice";
-import { BrandTitle } from "./BrandDeatils";
-import { CustomButton } from "./NavBar";
+import { CustomButton } from "../../styles/buttons";
+import { BrandTitle, NavLinkText } from "../../styles/typos";
 
 export const navItems = [
   { name: "Home", to: "/", dest: "" },
@@ -19,18 +12,6 @@ export const navItems = [
   { name: "My Appoitments", to: "/login", dest: "/appointments" },
   { name: "About Us", to: "/", dest: "" },
 ];
-
-export const NavLinkText = styled(Typography)(({ theme }) => ({
-  fontFamily: "Poppins",
-  fontWeight: 500,
-  fontSize: "1rem",
-  color: "black",
-  textDecoration: "none",
-  [theme.breakpoints.down("sm")]: {
-    fontWeight: 500,
-    fontSize: "0.8rem",
-  },
-}));
 
 const MyDrawer = ({ container }) => {
   const mobileOpen = useSelector((state) => state.mobile.value);

@@ -1,48 +1,17 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import BrandDeatils from "./BrandDeatils";
-import MyDrawer, { NavLinkText } from "./Drawer";
+import MyDrawer from "./Drawer";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "../../features/mobileSlice";
 import { Link } from "react-router-dom";
-import { Button, styled } from "@mui/material";
-
-export const StyledAppBar = styled(AppBar)({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  backgroundColor: "white",
-  boxShadow: "none",
-  padding: "0  2rem",
-});
-
-export const StyledAppBarBox = styled(Box)(({ theme }) => ({
-  width: "50%",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  [theme.breakpoints.down("md")]: {
-    display: "none",
-  },
-}));
-
-export const CustomButton = styled(Button)(({ variant }) => ({
-  fontFamily: "Poppins",
-  fontSize: "1rem",
-  height: "3rem",
-  textTransform: "none",
-  ...(variant === "contained" && {
-    backgroundColor: "black",
-  }),
-  ...(variant === "outlined" && {
-    color: "black",
-    border: "1px black solid",
-  }),
-}));
+import { increment } from "../../features/numberSlice";
+import { NavLinkText } from "../../styles/typos";
+import { StyledAppBar } from "../../styles/other";
+import { CustomButton } from "../../styles/buttons";
+import { StyledAppBarBox } from "../../styles/surfaces";
 
 const NavBar = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -52,18 +21,18 @@ const NavBar = (props) => {
 
   const navItems = [
     { name: "Home", to: "/", dest: "" },
-    { name: "Services", to: "/", dest: "" },
+    { name: "Services", to: "/", dest: "service" },
     { name: "My Appoitments", to: appointmentPath, dest: "/appointments" },
-    { name: "About Us", to: "/", dest: "" },
+    { name: "About Us", to: "/", dest: "about" },
   ];
 
-  const disptch = useDispatch();
+  const dispatch = useDispatch();
   const { window } = props;
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
   const handleDrawerToggle = () => {
-    disptch(toggle());
+    dispatch(toggle());
   };
 
   return (
@@ -80,7 +49,14 @@ const NavBar = (props) => {
               style={{ textDecoration: "none" }}
               key={item.name}
             >
-              <NavLinkText>{item.name}</NavLinkText>
+              <NavLinkText
+                onClick={() =>
+                  (item.dest === "service" || item.dest === "about") &&
+                  dispatch(increment())
+                }
+              >
+                {item.name}
+              </NavLinkText>
             </Link>
           ))}
           <Link

@@ -2,10 +2,10 @@ import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { CustomButton } from "../components/navbar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { userBooking } from "../features/userSlice";
 import { removeaAllAppointment } from "../features/currentAppointmentSlice";
+import { CustomButton } from "../styles/buttons";
 
 const PaymentModal = ({ amount }) => {
   const dispatch = useDispatch();

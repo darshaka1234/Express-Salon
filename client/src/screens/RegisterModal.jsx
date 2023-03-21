@@ -3,11 +3,10 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CardButton } from "../components/carousel/Card";
 import { RegisterValidationSchema } from "../components/form/validationSchemas";
-import { CustomButton } from "../components/navbar/NavBar";
-import { Title } from "../components/SectionDivider";
 import { userRegister } from "../features/userSlice";
+import { CustomButton } from "../styles/buttons";
+import { CardButton, Title } from "../styles/typos";
 
 const RegisterModal = () => {
   const navigate = useNavigate();
