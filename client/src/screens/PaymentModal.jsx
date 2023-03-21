@@ -10,9 +10,13 @@ import { removeaAllAppointment } from "../features/currentAppointmentSlice";
 const PaymentModal = ({ amount }) => {
   const dispatch = useDispatch();
   const { _id, email } = useSelector((state) => state.user.user);
-  const appointments = useSelector(
+  const user = useSelector((state) => state.user.user);
+
+  const newAppointments = useSelector(
     (state) => state.currentAppointment.appointments
   );
+
+  const appointments = newAppointments.concat(user.appointments);
 
   const navigate = useNavigate();
   const publishableKey =

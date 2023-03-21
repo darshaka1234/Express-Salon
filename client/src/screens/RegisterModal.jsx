@@ -23,7 +23,6 @@ const RegisterModal = () => {
   }, []);
 
   const handleSubmit = () => {
-    console.log(formik.values);
     dispatch(userRegister(formik.values));
     navigate("/login");
   };

@@ -19,6 +19,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { StaticTimePicker } from "@mui/x-date-pickers";
 import moment from "moment";
+import dayjs from "dayjs";
 
 const NewForm = () => {
   const allUsers = useSelector((state) => state.allUsers?.users);
@@ -118,6 +119,9 @@ const NewForm = () => {
     }
   };
 
+  const minTime = dayjs().hour(8);
+  const maxTime = dayjs().hour(18);
+
   return (
     <form onSubmit={handleSubmit} style={{ padding: "2rem" }}>
       <Stack spacing={3}>
@@ -150,6 +154,7 @@ const NewForm = () => {
           </LocalizationProvider>
           <Stack direction="column">
             <TextField
+              label="HH : MM"
               name="time"
               value={formData.time}
               fullWidth
@@ -168,6 +173,9 @@ const NewForm = () => {
                 <StaticTimePicker
                   ampmInClock
                   label="Select Time"
+                  minutesStep={5}
+                  minTime={minTime}
+                  maxTime={maxTime}
                   value={selectedTime}
                   onChange={handleTimeChange}
                   inputFormat="hh:mm a"
