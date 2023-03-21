@@ -6,6 +6,7 @@ import Footer from "../components/footer/Footer";
 import { Paragraph } from "./HomePage";
 import { CustomButton } from "../components/navbar/NavBar";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const ServiceDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -31,6 +32,8 @@ export const ServiceImage = styled("img")(({ theme }) => ({
 const ServicePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const user = useSelector((state) => state.user.user);
+  const bookingPath = user.firstName === undefined ? "/login" : "/booking";
   const { url, title, description, price } = location.state?.data;
   return (
     <Box>
@@ -45,7 +48,10 @@ const ServicePage = () => {
         <Title sx={{ m: 0 }}>{`$ ${price}`}</Title>
       </ServiceDiv>
       <div style={{ textAlign: "right", margin: "2rem" }}>
-        <CustomButton variant={"outlined"} onClick={() => navigate("/booking")}>
+        <CustomButton
+          variant={"outlined"}
+          onClick={() => navigate(bookingPath)}
+        >
           Book now
         </CustomButton>
       </div>

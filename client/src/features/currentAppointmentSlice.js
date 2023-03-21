@@ -14,10 +14,13 @@ export const currentAppointmentSlice = createSlice({
         (item) => item.serviceType !== payload
       );
     },
+    removeaAllAppointment: (state) => {
+      state.appointments = [];
+    },
   },
 });
 
-export const { addAppointment, removeAppointment } =
+export const { addAppointment, removeAppointment, removeaAllAppointment } =
   currentAppointmentSlice.actions;
 
 export default currentAppointmentSlice.reducer;

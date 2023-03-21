@@ -11,26 +11,57 @@ import { useDispatch, useSelector } from "react-redux";
 import { addAppointment } from "../../features/currentAppointmentSlice";
 import { makeClose, makeOpen } from "../../features/selectSlice";
 import { CustomButton } from "../navbar/NavBar";
+import moment from "moment";
 
 const NewForm = () => {
   const allUsers = useSelector((state) => state.allUsers?.users);
   const services = useSelector((state) => state.allServices?.services);
   const open = useSelector((state) => state.select?.value);
 
-  const bookedAppointments = Object.values(allUsers)
-    .flatMap((user) => user.appointments)
-    .flat();
-  const bookedTimeSlots = bookedAppointments?.map(
-    (item) => item.date + " " + item.time
-  );
-  const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     serviceType: "",
     date: "",
     time: "",
     price: 0,
+    duration: 0,
   });
+
+  const bookedAppointments = Object.values(allUsers)
+    .flatMap((user) => user.appointments)
+    .flat();
+
+  const isTimeSlotBooked = () => {
+    const start = new Date(`${formData.date}T${formData.time}:00`);
+    const end = new Date(start.getTime() + formData.duration * 60 * 1000);
+
+    if (bookedAppointments === undefined) return false;
+    return bookedAppointments?.some((appointment) => {
+      const appointmentStart = new Date(
+        `${moment(appointment.date).utc().format("YYYY-MM-DD")}T${
+          appointment.time
+        }:00`
+      );
+      const appointmentEnd = new Date(
+        appointmentStart.getTime() + appointment.duration * 60 * 1000
+      );
+      console.log("appo data", bookedAppointments[0].duration);
+      console.log(
+        "fs",
+        start,
+        "as",
+        appointmentStart,
+        "fe",
+        end,
+        "ae",
+        appointmentEnd
+      );
+      return (
+        (start <= appointmentStart && end > appointmentStart) ||
+        (start < appointmentEnd && end > appointmentEnd)
+      );
+    });
+  };
+  const dispatch = useDispatch();
 
   const handleSelectChange = (event) => {
     const { name, value } = event.target;
@@ -41,6 +72,7 @@ const NewForm = () => {
       ...prevFormData,
       [name]: selectedItem.name,
       price: selectedItem.price,
+      duration: selectedItem.duration,
     }));
   };
 
@@ -55,9 +87,9 @@ const NewForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const selectedTimeSlot = formData.date + " " + formData.time;
-    if (bookedTimeSlots.includes(selectedTimeSlot)) {
-      alert("This time slot is already booked. Please select another one.");
+    if (isTimeSlotBooked()) {
+      alert("This time slot is already booked.");
+      return;
     } else {
       dispatch(addAppointment(formData));
     }

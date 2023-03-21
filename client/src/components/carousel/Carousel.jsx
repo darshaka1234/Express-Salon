@@ -33,6 +33,7 @@ const renderNextButton = ({ isDisabled }) => {
         right: "1rem",
         top: "50%",
         fontSize: "3rem",
+        cursor: "pointer",
       }}
     />
   );
@@ -46,6 +47,7 @@ const renderPrevButton = ({ isDisabled }) => {
         left: "2rem",
         top: "50%",
         fontSize: "3rem",
+        cursor: "pointer",
       }}
     />
   );
@@ -56,7 +58,7 @@ const Carousel = () => {
 
   const product = services?.map((item) => (
     <Card
-      name={item.name}
+      title={item.name}
       url={item.imageUrl}
       description={item.description}
       price={item.price}
@@ -67,6 +69,9 @@ const Carousel = () => {
     <p>"loading"</p>
   ) : (
     <AliceCarousel
+      autoPlay
+      infinite
+      animationDuration={2000}
       mouseTracking
       items={product}
       disableDotsControls

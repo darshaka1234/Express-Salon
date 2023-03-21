@@ -1,9 +1,11 @@
 import { Box, Stack, styled } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/footer/Footer";
 import NavBar, { CustomButton } from "../components/navbar/NavBar";
 import { Title } from "../components/SectionDivider";
+import { logout } from "../features/userSlice";
 import { Paragraph } from "./HomePage";
 
 export const SucessStack = styled(Stack)(({ theme }) => ({
@@ -25,6 +27,12 @@ export const SucessBox = styled(Box)({
 
 const SuccessPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
   return (
     <Box>
       <NavBar />
@@ -36,14 +44,14 @@ const SuccessPage = () => {
           and publishing industries for previewing layouts and visual mockups.
         </Paragraph>
         <SucessStack direction={{ xs: "column", sm: "row" }} spacing={2}>
-          <CustomButton variant={"contained"} handleClick={() => navigate("/")}>
-            Home
-          </CustomButton>
           <CustomButton
             variant={"outlined"}
-            handleClick={() => navigate("/appointments")}
+            onClick={() => navigate("/appointments")}
           >
             View appointents
+          </CustomButton>
+          <CustomButton variant={"contained"} onClick={handleLogout}>
+            LogOut
           </CustomButton>
         </SucessStack>
       </SucessBox>

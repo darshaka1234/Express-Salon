@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../components/navbar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { userBooking } from "../features/userSlice";
+import { removeaAllAppointment } from "../features/currentAppointmentSlice";
 
 const PaymentModal = ({ amount }) => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const PaymentModal = ({ amount }) => {
   const appointments = useSelector(
     (state) => state.currentAppointment.appointments
   );
-  console.log(appointments);
+
   const navigate = useNavigate();
   const publishableKey =
     "pk_test_51MllbxFrCWngvYq5E8ntlbXdLLgBR58maBbLppk88qE2ciWkJ6xUxxP2uPG4C7gHeC1Oh1dK66GsCc6cK5rLDC8Y00mxtYGSay";
@@ -24,6 +25,7 @@ const PaymentModal = ({ amount }) => {
       });
       console.log(response.data);
       dispatch(userBooking({ _id, appointments }));
+      dispatch(removeaAllAppointment());
       navigate("/success");
     } catch (error) {
       console.log(error);

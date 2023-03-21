@@ -10,10 +10,11 @@ import { useSelector } from "react-redux";
 import React from "react";
 import NavBar from "../components/navbar/NavBar";
 import SectionDivider from "../components/SectionDivider";
+import moment from "moment";
 
 const AppointmentPage = () => {
-  const { fristName, lastName, email, telephone, appointments } = useSelector(
-    (state) => state.user.user
+  const { firstName, lastName, email, telephone, appointments } = useSelector(
+    (state) => state.user?.user
   );
   return (
     <Box>
@@ -25,7 +26,7 @@ const AppointmentPage = () => {
             <Typography>Name</Typography>
           </TableCell>
           <TableCell>
-            <Typography>{`: ${fristName} ${lastName}`}</Typography>
+            <Typography>{`: ${firstName} ${lastName}`}</Typography>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -53,9 +54,10 @@ const AppointmentPage = () => {
       >
         {appointments.map((item) => (
           <Box key={item._id}>
-            <Typography variant="h6">{`Appointment ${item.appointmentId}`}</Typography>
-            <Typography>{item.serviceType}</Typography>
-            <Typography>{`${item.date} ${item.time}`}</Typography>
+            <Typography variant="h6">{item.serviceType}</Typography>
+            <Typography>
+              {moment(item.date).utc().format("YYYY-MM-DD")}
+            </Typography>
             <Typography>{item.price}</Typography>
           </Box>
         ))}

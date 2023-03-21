@@ -105,7 +105,7 @@ const HomePage = () => {
       <Grid item xs={12}>
         <Grid container align="center" m={"5rem 0"}>
           {roundData.map((round) => (
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid item xs={12} sm={6} md={3} key={round.service}>
               <Round>
                 <Title sx={{ fontSize: "3rem" }}>{round.number}</Title>
                 <Title sx={{ margin: 0 }}>{round.service}</Title>

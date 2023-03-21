@@ -29,7 +29,11 @@ const haircutData = [
 
 const Footer = () => {
   return (
-    <Grid container sx={{ bgcolor: "black", padding: "0 2rem" }}>
+    <Grid
+      container
+      sx={{ bgcolor: "black", padding: "0 2rem" }}
+      position="sticky"
+    >
       <Grid item xs={5}>
         <BrandDetailsContainer sx={{ color: "white" }}>
           <FooterLogoImage src="./assets/logowhite.png" alt="main logo" />

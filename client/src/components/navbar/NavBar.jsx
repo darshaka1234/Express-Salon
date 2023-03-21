@@ -4,8 +4,8 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import BrandDeatils from "./BrandDeatils";
-import MyDrawer, { navItems, NavLinkText } from "./Drawer";
-import { useDispatch } from "react-redux";
+import MyDrawer, { NavLinkText } from "./Drawer";
+import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "../../features/mobileSlice";
 import { Link } from "react-router-dom";
 import { Button, styled } from "@mui/material";
@@ -45,6 +45,18 @@ export const CustomButton = styled(Button)(({ variant }) => ({
 }));
 
 const NavBar = (props) => {
+  const user = useSelector((state) => state.user.user);
+  const appointmentPath =
+    user.firstName === undefined ? "/login" : "/appointments";
+  const bookingPath = user.firstName === undefined ? "/login" : "/booking";
+
+  const navItems = [
+    { name: "Home", to: "/", dest: "" },
+    { name: "Services", to: "/", dest: "" },
+    { name: "My Appoitments", to: appointmentPath, dest: "/appointments" },
+    { name: "About Us", to: "/", dest: "" },
+  ];
+
   const disptch = useDispatch();
   const { window } = props;
   const container =
@@ -61,14 +73,20 @@ const NavBar = (props) => {
         <StyledAppBarBox>
           {navItems.map((item) => (
             <Link
-              to={item.to}
+              to={{
+                pathname: item.to,
+                search: `?data=${item.dest}`,
+              }}
               style={{ textDecoration: "none" }}
               key={item.name}
             >
               <NavLinkText>{item.name}</NavLinkText>
             </Link>
           ))}
-          <Link to={"/login"} style={{ textDecoration: "none" }}>
+          <Link
+            to={{ pathname: bookingPath, search: "?data=/booking" }}
+            style={{ textDecoration: "none" }}
+          >
             <CustomButton variant={"contained"}>Book Now</CustomButton>
           </Link>
         </StyledAppBarBox>

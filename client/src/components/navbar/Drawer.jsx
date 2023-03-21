@@ -14,10 +14,10 @@ import { BrandTitle } from "./BrandDeatils";
 import { CustomButton } from "./NavBar";
 
 export const navItems = [
-  { name: "Home", to: "/" },
-  { name: "Services", to: "/" },
-  { name: "My Bookings", to: "/appointments" },
-  { name: "About Us", to: "/" },
+  { name: "Home", to: "/", dest: "" },
+  { name: "Services", to: "/", dest: "" },
+  { name: "My Appoitments", to: "/login", dest: "/appointments" },
+  { name: "About Us", to: "/", dest: "" },
 ];
 
 export const NavLinkText = styled(Typography)(({ theme }) => ({
@@ -34,8 +34,20 @@ export const NavLinkText = styled(Typography)(({ theme }) => ({
 
 const MyDrawer = ({ container }) => {
   const mobileOpen = useSelector((state) => state.mobile.value);
+
   const disptch = useDispatch();
   const drawerWidth = 240;
+
+  const user = useSelector((state) => state.user.user);
+  const appointmentPath =
+    user.firstName === undefined ? "/login" : "/appointments";
+  const bookingPath = user.firstName === undefined ? "/login" : "/booking";
+  const navItems = [
+    { name: "Home", to: "/", dest: "" },
+    { name: "Services", to: "/", dest: "" },
+    { name: "My Appoitments", to: appointmentPath, dest: "/appointments" },
+    { name: "About Us", to: bookingPath, dest: "" },
+  ];
 
   return (
     <Drawer
@@ -62,7 +74,10 @@ const MyDrawer = ({ container }) => {
         <List>
           {navItems.map((item) => (
             <Link
-              to={item.to}
+              to={{
+                pathname: item.to,
+                search: `?data=${item.dest}`,
+              }}
               style={{ textDecoration: "none" }}
               key={item.name}
             >

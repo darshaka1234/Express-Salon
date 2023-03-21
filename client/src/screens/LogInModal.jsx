@@ -8,7 +8,8 @@ import { LoginValidationSchema } from "../components/form/validationSchemas";
 import { CustomButton } from "../components/navbar/NavBar";
 import { Title } from "../components/SectionDivider";
 import { userLogin } from "../features/userSlice";
-
+import queryString from "query-string";
+import { useLocation } from "react-router-dom";
 const LogInModal = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,13 +19,17 @@ const LogInModal = () => {
     setOpen((prev) => !prev);
   };
 
+  const location = useLocation();
+  const values = queryString.parse(location.search);
+  const destination = values.data || "/booking";
+
   useEffect(() => {
     handleClick();
   }, []);
 
   const handleSubmit = () => {
     dispatch(userLogin(formik.values));
-    navigate("/booking");
+    navigate(destination);
   };
   const formik = useFormik({
     initialValues: {

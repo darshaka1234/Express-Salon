@@ -28,7 +28,6 @@ export const userBooking = createAsyncThunk(
   "users/userBooking",
   async ({ _id, appointments }) => {
     try {
-      console.log(appointments);
       const response = await axios.put(`${baseUrl}/${_id}`, appointments);
       return response.data;
     } catch (error) {
@@ -44,7 +43,11 @@ const userSlice = createSlice({
     status: true,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.user = {};
+    },
+  },
   extraReducers: {
     [userLogin.pending]: (state) => {
       state.status = "loading";
@@ -81,5 +84,6 @@ const userSlice = createSlice({
     },
   },
 });
+export const { logout } = userSlice.actions;
 
 export default userSlice.reducer;

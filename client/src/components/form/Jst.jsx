@@ -18,6 +18,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { StaticTimePicker } from "@mui/x-date-pickers";
+import moment from "moment";
+
 const NewForm = () => {
   const allUsers = useSelector((state) => state.allUsers?.users);
   const services = useSelector((state) => state.allServices?.services);
@@ -32,6 +34,7 @@ const NewForm = () => {
     date: "",
     time: "",
     price: 0,
+    duration: 0,
   });
 
   const handleTimeChange = (time) => {
@@ -42,15 +45,20 @@ const NewForm = () => {
   };
 
   const handleClockChange = (event) => {
-    const time = `${event.$H}:${event.$m}:00`;
+    const hour = event.$H < 10 ? `0${event.$H}` : event.$H;
+    const minute = event.$m < 10 ? `0${event.$m}` : event.$m;
+    const time = `${hour}:${minute}`;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       time: time,
     }));
+    setClockOpen(false);
   };
 
   const handleCalendarChange = (event) => {
     const date = `${event.$y}-${event.$M + 1}-${event.$D}`;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       date: date,
@@ -66,21 +74,45 @@ const NewForm = () => {
       ...prevFormData,
       [name]: selectedItem.name,
       price: selectedItem.price,
+      duration: selectedItem.duration,
     }));
   };
 
   const bookedAppointments = Object.values(allUsers)
     .flatMap((user) => user.appointments)
     .flat();
-  const bookedTimeSlots = bookedAppointments?.map(
-    (item) => item.date + " " + item.time
-  );
+
+  const isTimeSlotBooked = () => {
+    const start = new Date(
+      `${moment(formData.date).utc().format("YYYY-MM-DD")}T${formData.time}`
+    );
+    start.setDate(start.getDate() + 1);
+    const end = new Date(start.getTime() + formData.duration * 60 * 1000);
+
+    return bookedAppointments.some((appointment) => {
+      const appointmentStart = new Date(
+        `${moment(appointment.date).utc().format("YYYY-MM-DD")}T${
+          appointment.time
+        }:00`
+      );
+      const appointmentEnd = new Date(
+        appointmentStart.getTime() + appointment.duration * 60 * 1000
+      );
+
+      return (
+        (start <= appointmentStart && end > appointmentStart) ||
+        (start < appointmentEnd && end > appointmentEnd) ||
+        (start >= appointmentStart && end <= appointmentEnd)
+      );
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const selectedTimeSlot = formData.date + " " + formData.time;
-    if (bookedTimeSlots.includes(selectedTimeSlot)) {
-      alert("This time slot is already booked. Please select another one.");
+
+    if (isTimeSlotBooked()) {
+      alert("This time slot is already booked.");
+      return;
     } else {
       dispatch(addAppointment(formData));
     }
@@ -111,7 +143,7 @@ const NewForm = () => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               value={selectedDate}
-              onViewChange={handleDateChange}
+              onChange={handleDateChange}
               name="date"
               onAccept={handleCalendarChange}
             />
@@ -140,6 +172,8 @@ const NewForm = () => {
                   onChange={handleTimeChange}
                   inputFormat="hh:mm a"
                   onAccept={handleClockChange}
+                  displayStaticWrapperAs={"desktop"}
+                  onClose={() => setClockOpen(false)}
                 />
               </LocalizationProvider>
             )}

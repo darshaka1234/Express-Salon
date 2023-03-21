@@ -7,7 +7,6 @@ import { CardButton } from "../components/carousel/Card";
 import { RegisterValidationSchema } from "../components/form/validationSchemas";
 import { CustomButton } from "../components/navbar/NavBar";
 import { Title } from "../components/SectionDivider";
-import { addUser } from "../features/allUsersSlice";
 import { userRegister } from "../features/userSlice";
 
 const RegisterModal = () => {
@@ -26,8 +25,7 @@ const RegisterModal = () => {
   const handleSubmit = () => {
     console.log(formik.values);
     dispatch(userRegister(formik.values));
-    dispatch(addUser(formik.values));
-    navigate("/booking");
+    navigate("/login");
   };
   const formik = useFormik({
     initialValues: {
